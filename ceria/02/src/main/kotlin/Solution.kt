@@ -8,7 +8,7 @@ fun main(args : Array<String>) {
 }
 
 private fun solution1(input: List<String>) :Int {
-    var invalidPasswordIndexes =  mutableListOf<Int>()
+    var validPasswordIndexes =  mutableListOf<Int>()
     input.forEachIndexed { index, line ->
         val parts = line.split(" ")
         val minmax = parts.get(0).split("-").map{ it.toInt() }
@@ -16,14 +16,14 @@ private fun solution1(input: List<String>) :Int {
 
         val countInPasswd = parts.get(2).count{ parts.get(1).dropLast(1).contains(it) }
         if (range.contains(countInPasswd)) {
-            invalidPasswordIndexes.add(index)
+            validPasswordIndexes.add(index)
         }
     }
-    return invalidPasswordIndexes.size
+    return validPasswordIndexes.size
 }
     
 private fun solution2(input: List<String>) :Int {
-    var invalidPasswordIndexes =  mutableListOf<Int>()
+    var validPasswordIndexes =  mutableListOf<Int>()
     input.forEachIndexed { index, line ->
         val parts = line.split(" ")
         val minmax = parts.get(0).split("-").map{ it.toInt() }
@@ -31,8 +31,8 @@ private fun solution2(input: List<String>) :Int {
 
         if ((parts.get(2).get(range.start - 1) == parts.get(1).dropLast(1).single()).xor(
             (parts.get(2).get(range.endInclusive - 1) == parts.get(1).dropLast(1).single())) ) {
-                invalidPasswordIndexes.add(index)
+                validPasswordIndexes.add(index)
             } 
     }
-    return invalidPasswordIndexes.size
+    return validPasswordIndexes.size
 }    
