@@ -12,7 +12,6 @@ fun main(args : Array<String>) {
     println("Solution 2: ${solution2(detectPassports(input))}")
 }
 
-// 254
 private fun solution1(input: List<String>) :Int {
     var validPassportCount = 0
     for ( p in input ) {
@@ -24,7 +23,6 @@ private fun solution1(input: List<String>) :Int {
 	return validPassportCount
 }
 
-// 185 == too high
 private fun solution2(input: List<String>) :Int {
     var validPassportCount = 0
     for ( p in input ) {
