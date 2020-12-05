@@ -7,15 +7,13 @@ fun main(args : Array<String>) {
 }
 
 private fun solution1(input :List<String>) :Int {
-    var highestSeatID = 0
+    var seatIDs = mutableListOf<Int>()
     for (boardingPass in input) {
-       val seatID = getSeatID(boardingPass)
-       if (seatID > highestSeatID) {
-            highestSeatID = seatID
-        }
+        seatIDs.add(getSeatID(boardingPass))
     }
-
-    return highestSeatID
+    var sortedSeatIDs = seatIDs.toIntArray()
+    sortedSeatIDs.sort()
+    return sortedSeatIDs.last()
 }
     
 private fun solution2(input :List<String>) :Int {
@@ -23,7 +21,7 @@ private fun solution2(input :List<String>) :Int {
     for (boardingPass in input) {
         seatIDs.add(getSeatID(boardingPass))
     }
-    var sortedSeatIDs = seatIDs.toSet().toIntArray()
+    var sortedSeatIDs = seatIDs.toIntArray()
     sortedSeatIDs.sort()
 
     var previousSeat = sortedSeatIDs.first()
