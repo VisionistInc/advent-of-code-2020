@@ -3,7 +3,7 @@ import java.io.File;
 val yourBag = "shiny gold"
 val stopBag = "no other"
 val outterBag = "contain"
-var bagCount = 0
+var total = 0
 
 fun main(args : Array<String>) {
     val input = File(args.first()).readLines()
@@ -16,8 +16,8 @@ private fun solution1(bagRules :List<String>) :Int {
 }
 
 private fun solution2(bagRules :List<String>) :Int {
-     countBagsInside(yourBag, bagRules, 0 )
-     return bagCount
+     countBagsInside(yourBag, bagRules, 1)
+     return total
 }
 
 private fun canContainBag(bag :String, bagRules :List<String>, containingBags :MutableSet<String>) :Set<String> {
@@ -38,30 +38,20 @@ private fun canContainBag(bag :String, bagRules :List<String>, containingBags :M
 
 private fun countBagsInside(bag :String, bagRules :List<String>, containingCount :Int) {
     val rule = bagRules.filter{ it.startsWith(bag) }.first()
+    var bagCount = 0
 
     if (!rule.contains(stopBag)) { 
         val ruleParts = rule.substring(rule.indexOf(outterBag) + outterBag.length + 1).split(" ")
         var numBags = 0
-        var multiplier = 0
-        var ruleBagCount = 0
 
         while (numBags < ruleParts.size) {
-            if (ruleParts.get(numBags).toInt() != 0) {
-                val newBagCount = ruleParts.get(numBags).toInt()
-                val newBag = ruleParts.get(numBags + 1).plus(" ").plus(ruleParts.get(numBags + 2))
-                ruleBagCount += newBagCount
-                countBagsInside(newBag, bagRules, newBagCount)
-            }
+            val newBagCount = ruleParts.get(numBags).toInt()
+            val newBag = ruleParts.get(numBags + 1).plus(" ").plus(ruleParts.get(numBags + 2))
+            bagCount = (newBagCount * containingCount) + bagCount
+            countBagsInside(newBag, bagRules, newBagCount * containingCount)
             numBags += 4
-            multiplier++
         }
-        println( ruleBagCount.toString() + " * " + containingCount.toString()) 
-        println( ruleBagCount * containingCount) 
-        if (containingCount == 0) {
-            bagCount += ruleBagCount 
-        } else {
-            bagCount += ruleBagCount * containingCount
-        }
+        total += bagCount
     }
 
 }
