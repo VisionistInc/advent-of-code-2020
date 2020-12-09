@@ -6,7 +6,7 @@ fun main(args : Array<String>) {
     println("Solution 2: ${solution2(input)}")
 }
 
-private fun solution1(input :List<String>) :Int {
+private fun solution1(input :List<String>) :Long {
     val preamble = 25
 
     for (i in input.indices) {
@@ -14,14 +14,14 @@ private fun solution1(input :List<String>) :Int {
             continue
         }
 
-        val availableNums = input.subList(i - preamble, i)
-        val sumNum = input.get(i).toInt()
+        val availableNums = input.subList(i - preamble, i).map{ it.toLong() }
+        val sumNum = input.get(i).toLong()
         var valid = false
         for (avail1 in availableNums.indices) {
             if (avail1 < availableNums.size - 1) {
                 for (avail2 in availableNums.indices) {
                     if (avail1 != avail2) {
-                        if (availableNums.get(avail1).toInt() + availableNums.get(avail2).toInt() == sumNum) {
+                        if (availableNums.get(avail1) + availableNums.get(avail2) == sumNum) {
                             valid = true
                             break
                         }
@@ -42,6 +42,28 @@ private fun solution1(input :List<String>) :Int {
     return 0
 }
 
-private fun solution2(input :List<String>) :Int {
+private fun solution2(input :List<String>) :Long {
+    val invalidNum = solution1(input)
+    for (i in input.indices) {
+        val subInput = input.drop(i).map{ it.toLong() }
+        var subInputIndex = -1
+        var runningSum = 0L
+        for (contigIndex in subInput.indices) {
+            runningSum += subInput.get(contigIndex)
+            if (runningSum > invalidNum ) {
+                break
+            }
+
+            if (runningSum == invalidNum) {
+                subInputIndex = contigIndex
+                break
+            }
+        }
+
+        if (subInputIndex != -1) {
+            val contigValues = subInput.subList(0, subInputIndex + 1)
+            return contigValues.minOrNull()!! + contigValues.maxOrNull()!!
+        }
+    }
      return 0
 }
