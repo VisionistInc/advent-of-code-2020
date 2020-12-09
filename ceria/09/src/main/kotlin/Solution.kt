@@ -20,11 +20,9 @@ private fun solution1(input :List<String>) :Long {
         for (avail1 in availableNums.indices) {
             if (avail1 < availableNums.size - 1) {
                 for (avail2 in availableNums.indices) {
-                    if (avail1 != avail2) {
-                        if (availableNums.get(avail1) + availableNums.get(avail2) == sumNum) {
-                            valid = true
-                            break
-                        }
+                    if (avail1 != avail2 && availableNums.get(avail1) + availableNums.get(avail2) == sumNum) {
+                        valid = true
+                        break
                     }
                 }
 
@@ -39,14 +37,13 @@ private fun solution1(input :List<String>) :Long {
         }
     }
 
-    return 0
+    return 0L
 }
 
 private fun solution2(input :List<String>) :Long {
     val invalidNum = solution1(input)
     for (i in input.indices) {
         val subInput = input.drop(i).map{ it.toLong() }
-        var subInputIndex = -1
         var runningSum = 0L
         for (contigIndex in subInput.indices) {
             runningSum += subInput.get(contigIndex)
@@ -55,14 +52,9 @@ private fun solution2(input :List<String>) :Long {
             }
 
             if (runningSum == invalidNum) {
-                subInputIndex = contigIndex
-                break
+                val contigValues = subInput.subList(0, contigIndex + 1)
+                return contigValues.minOrNull()!! + contigValues.maxOrNull()!!
             }
-        }
-
-        if (subInputIndex != -1) {
-            val contigValues = subInput.subList(0, subInputIndex + 1)
-            return contigValues.minOrNull()!! + contigValues.maxOrNull()!!
         }
     }
      return 0
