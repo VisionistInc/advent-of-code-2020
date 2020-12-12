@@ -5,7 +5,6 @@ use std::str::FromStr;
 
 struct Coordinate(isize, isize);
 
-
 #[derive(Copy, Clone, PartialEq)]
 enum Direction {
     NORTH,
@@ -63,7 +62,7 @@ impl Ship {
             90 => self.update_pos(Direction::EAST, distance),
             180 => self.update_pos(Direction::SOUTH, distance),
             270 => self.update_pos(Direction::WEST, distance),
-            _ => panic!("Invalid cur_bearing {}", self.cur_bearing)
+            _ => panic!("Invalid cur_bearing {}", self.cur_bearing),
         }
     }
 
@@ -80,7 +79,7 @@ impl Ship {
             Direction::FORWARD => {
                 let Coordinate(x_ship, y_ship) = self.position;
                 self.position = Coordinate(x_ship + (distance * x), y_ship + (distance * y));
-            },
+            }
         }
     }
 
@@ -101,16 +100,21 @@ impl Ship {
 }
 
 fn read_lines<P>(filename: P) -> Vec<String>
-    where P: AsRef<Path>, {
+where
+    P: AsRef<Path>,
+{
     let file = File::open(filename).expect("Error opening file!");
-    BufReader::new(file).lines().map(|line| line.expect("Error reading line!")).collect()
+    BufReader::new(file)
+        .lines()
+        .map(|line| line.expect("Error reading line!"))
+        .collect()
 }
 
 fn part1(lines: &Vec<String>) {
     let mut ship = Ship {
-        position: Coordinate(0,0),
+        position: Coordinate(0, 0),
         cur_bearing: 90,
-        waypoint: Coordinate(0,0) // not used for part 1
+        waypoint: Coordinate(0, 0), // not used for part 1
     };
     for line in lines {
         let distance: isize = (&line[1..]).parse().unwrap();
@@ -126,9 +130,9 @@ fn part1(lines: &Vec<String>) {
 
 fn part2(lines: &Vec<String>) {
     let mut ship = Ship {
-        position: Coordinate(0,0),
+        position: Coordinate(0, 0),
         cur_bearing: 90,
-        waypoint: Coordinate(10,1)
+        waypoint: Coordinate(10, 1),
     };
 
     for line in lines {
