@@ -1,10 +1,6 @@
 import java.io.File
 import kotlin.math.roundToInt
 
-val floor = '.'
-val seat = 'L'
-val occupied = '#'
-
 fun main(args : Array<String>) {
     val input = File(args.first()).readLines()
     println("Solution 1: ${solution1(input)}")
