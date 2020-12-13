@@ -1,5 +1,4 @@
 import java.io.File
-import java.util.LinkedList
 import java.math.BigInteger
 
 fun main(args : Array<String>) {
@@ -15,7 +14,7 @@ private fun solution1(input :List<String>) :Int {
 
   while (yourBus == 0) {
     for (bus in busses) {
-      if (time % bus == 0) {
+      if (time.rem(bus) == 0) {
         yourBus = bus
         break
       }
