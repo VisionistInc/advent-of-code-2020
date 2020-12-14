@@ -39,14 +39,11 @@ private fun solution2(input :List<String>) :Long {
       val address = line.substring(line.indexOf('[') + 1, line.indexOf(']') ).toInt()
       val value = line.substring(line.lastIndexOf(' ') + 1).toInt()
       val binary = Integer.toBinaryString(address).padStart(36, '0')
-
       val masked = applyMaskV2(mask.toString(), binary)
       val floatingMasks = generateFloatingMasks(masked)
       for (fm in floatingMasks) {
         memory.put(binaryToDecimal(fm), value.toLong())
       }
- 
-      // memory.put(address, backToDecimal)
     }
   }
 
