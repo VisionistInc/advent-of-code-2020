@@ -1,16 +1,25 @@
 #!/usr/bin/env python3
 
+
 with open("input") as infile:
     sequence = [int(num) for num in infile.read().strip().split(",")]
 
-while len(sequence) != 30000000:
-    if len(sequence) % 1000 == 0:
-        print(f"\r{len(sequence)}", end="")
-    last = sequence[-1]
-    if last not in sequence[:-1]:
-        sequence.append(0)
-    else:
-        sequence.append(list(reversed(sequence[:-1])).index(last) + 1)
-print()
+sequence_hash = {int(num): idx for idx, num in enumerate(sequence[:-1])}
 
-print(sequence[-1])
+position = len(sequence) - 1
+last = sequence[-1]
+
+# print(sequence_hash)
+while position != 29999999:
+    # print(last)
+    # print(sequence_hash)
+    if last not in sequence_hash:
+        # print(f"{last} not in sequence_hash")
+        last_new = 0
+    else:
+        last_new = position - sequence_hash[last]
+    sequence_hash[last] = position
+    last = last_new
+    position += 1
+
+print(last)
