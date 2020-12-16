@@ -108,16 +108,11 @@ private fun solution2(input :List<String>) :Long {
     }
   }
 
-  var departureIndexes = mutableListOf<Int>()
+  var product = 1L  
   ruleToPosition.forEach {rule, pos ->
     if (rule.startsWith("departure")) {
-      departureIndexes.add(pos)
+      product *= yourTicket.get(pos)
     }
-  }
-
-  var product = 1L
-  for (i in departureIndexes) {
-    product *= yourTicket.get(i)
   }
 
   return product
