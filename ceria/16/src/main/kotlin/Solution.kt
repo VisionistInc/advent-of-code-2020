@@ -38,7 +38,6 @@ private fun solution1(input :List<String>) :Int {
   return invalidValues.sum()
 }
 
-// 1925967271 == too low
 private fun solution2(input :List<String>) :Long {
   val rules = input.subList(0, input.indexOf("") )
   val yourTicket = input.get(input.indexOf("your ticket:") + 1).split(',').map{ it.toInt() }
