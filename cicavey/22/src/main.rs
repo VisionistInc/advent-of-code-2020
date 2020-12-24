@@ -37,7 +37,7 @@ fn game(g: usize, p1: &mut VecDeque<usize>, p2: &mut VecDeque<usize>) -> usize {
     // println!("=== Game {} === ", g);
 
     let mut prev_games: HashSet<u64> = HashSet::new();
-    let mut r = 1;
+    // let mut r = 1;
 
 // -- Round 1 (Game 1) --
 // Player 1's deck: 9, 2, 6, 3, 1
@@ -56,9 +56,9 @@ fn game(g: usize, p1: &mut VecDeque<usize>, p2: &mut VecDeque<usize>) -> usize {
         // Calculate game state hash
         let mut hf = DefaultHasher::new();
         p1.hash(&mut hf);
-        hf.write_usize(p1.len());
+        // hf.write_usize(p1.len());
         p2.hash(&mut hf);
-        hf.write_usize(p2.len());
+        // hf.write_usize(p2.len());
         let hv = hf.finish();
 
         if !prev_games.insert(hv) {
@@ -118,7 +118,7 @@ fn game(g: usize, p1: &mut VecDeque<usize>, p2: &mut VecDeque<usize>) -> usize {
             return 1;
         }
 
-        r += 1;
+        // r += 1;
     }
 
     if p1.is_empty() {
